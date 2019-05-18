@@ -43,25 +43,25 @@ $this->widget('ext.bootstrap.widgets.TbNavbar', array(
    array('label'=>'Visitantes', 'items'=>array(
      array('label'=>'Visitantes', 'url'=>array('/visitantes/admin')),
      array('label'=>'Ocupacion', 'url'=>array('/ocupacion/admin')),
-   ),'visible'=>Yii::app()->user->checkAccess("admin")),
+   ),'visible'=>!Yii::app()->user->isGuest),
 
    array('label'=>'Libros', 'items'=>array(
      array('label'=>'Libros', 'url'=>array('/libros/admin')),
      array('label'=>'Categorias', 'url'=>array('/categorias/admin')),
      array('label'=>'Pais', 'url'=>array('/pais/admin')),
      array('label'=>'Tags', 'url'=>array('/tags/admin')),
-   ),'visible'=>Yii::app()->user->checkAccess("admin")),
+   ),'visible'=>!Yii::app()->user->isGuest),
 
 
-   array('label'=>'Usuarios', 'url'=>array('/usuarios/admin'),'visible'=>Yii::app()->user->checkAccess("admin")),
-   array('label'=>'Bitacora', 'url'=>array('/bitacora/admin'),'visible'=>Yii::app()->user->checkAccess("admin")),
+   array('label'=>'Usuarios', 'url'=>array('/usuarios/admin'),'visible'=>Yii::app()->user->checkAccess("main-admin")),
+   array('label'=>'Bitacora', 'url'=>array('/bitacora/admin'),'visible'=>!Yii::app()->user->isGuest),
 
-   array('label'=>'Fotocopias', 'url'=>array('/fotocopia/admin'),'visible'=>Yii::app()->user->checkAccess("admin")),
+   array('label'=>'Fotocopias', 'url'=>array('/fotocopia/admin'),'visible'=>!Yii::app()->user->isGuest),
 
-   array('label'=>'Multas', 'url'=>array('/multas/admin'),'visible'=>Yii::app()->user->checkAccess("admin")),
+   array('label'=>'Multas', 'url'=>array('/multas/admin'),'visible'=>!Yii::app()->user->isGuest),
 
 
-   array('label'=>'Prestamos', 'url'=>array('/prestamos/admin'),'visible'=>Yii::app()->user->checkAccess("admin")),
+   array('label'=>'Prestamos', 'url'=>array('/prestamos/admin'),'visible'=>!Yii::app()->user->isGuest),
 
 
 

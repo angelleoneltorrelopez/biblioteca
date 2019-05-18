@@ -1,0 +1,31 @@
+body {font-family: sans-serif;
+font-size: 10pt;
+}
+p { margin: 0pt;
+}
+td { vertical-align: top; }
+.items td {
+
+border: 0.1mm solid #000000;
+}
+table thead td { background-color: #96e4f9;
+text-align: center;
+border: 0.1mm solid #000000;
+}
+.items td.blanktotal {
+background-color: #FFFFFF;
+border: 0mm none #000000;
+border-top: 0.1mm solid #000000;
+}
+.items td.totals {
+text-align: right;
+border: 0.1mm solid #000000;
+}
+.imgRedonda {
+   background-image: linear-gradient(rgb(132, 220, 244), rgb(24, 116, 161));
+   border-radius:50px;
+}
+.myfooter{
+ background-image: linear-gradient(rgb(132, 220, 244), rgb(25, 175, 249));
+ border-radius:50px;
+}
