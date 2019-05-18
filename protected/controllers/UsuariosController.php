@@ -8,6 +8,7 @@ class UsuariosController extends Controller
 * using two-column layout. See 'protected/views/layouts/column2.php'.
 */
 public $layout='//layouts/column2';
+public $repetir_password;
 
 /**
 * @return array action filters
@@ -29,8 +30,8 @@ public function accessRules()
 return array(
 
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('index','view','create','admin','update','delete'),
-'users'=>array('melanie','angel'),
+'actions'=>array('index','view','create','admin','delete'),
+'roles'=>array('main-admin'),
 ),
 
 array('deny',  // deny all users
@@ -66,7 +67,7 @@ if(isset($_POST['Usuarios']))
 {
 $model->attributes=$_POST['Usuarios'];
 $model->password=sha1($model->password); //Linea para agregar password cifrada
-
+$model->repetir_password=sha1($model->repetir_password);
 if($model->save()){
     if(!empty($model->role)){
         $auth=Yii::app()->authManager;

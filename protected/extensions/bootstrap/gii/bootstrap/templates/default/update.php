@@ -11,7 +11,7 @@ $label = $this->pluralize($this->class2name($this->modelClass));
 echo "\$this->breadcrumbs=array(
 	'$label'=>array('index'),
 	\$model->{$nameColumn}=>array('view','id'=>\$model->{$this->tableSchema->primaryKey}),
-	'Update',
+	'Actualizar',
 );\n";
 ?>
 

@@ -37,13 +37,13 @@ $this->breadcrumbs=array(
 			<div class="row form-group">
 				<?php echo $form->labelEx($model,'username',$htmloptions=array('style'=>'font-size:14px;')); ?>
 				<?php echo $form->textField($model,'username',$htmloptions=array('class'=>'form-control')); ?>
-				<?php echo $form->error($model,'username'); ?>
+				<?php echo $form->error($model,'username',$htmloptions=array('class'=>'text-danger')); ?>
 			</div>
 
 	<div class="row form-group">
 		<?php echo $form->labelEx($model,'password',$htmloptions=array('style'=>'font-size:14px;')); ?>
 		<?php echo $form->passwordField($model,'password',$htmloptions=array('class'=>'form-control')); ?>
-		<?php echo $form->error($model,'password'); ?>
+		<?php echo $form->error($model,'password',$htmloptions=array('class'=>'text-danger')); ?>
 		
 	</div>
 
@@ -52,12 +52,17 @@ $this->breadcrumbs=array(
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
+	<div class="row">
+
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login',$htmloptions=array('class'=>'btn btn-lg btn-block',
 	'style'=>'weight:50px;background-color:#0aeba5; hover:#0aeba0; font-size:17px; font-weight:bold;    font-family: Neue Haas Grotesk W01 Disp,Helvetica,Arial,Nimbus Sans L,sans-serif;')); ?>
 	</div>
+	<br>
 
+	<?php echo $recup;?>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 
@@ -68,4 +73,5 @@ $this->breadcrumbs=array(
 
 
 </div>
+
 </div>

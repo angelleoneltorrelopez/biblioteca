@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Pais'=>array('index'),
+	'Pais'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Pais','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Pais','icon'=>'search','url'=>array('admin')),
 );
 ?>

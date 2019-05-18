@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Visitantes'=>array('index'),
+	'Visitantes'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Visitantes','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Visitantes','icon'=>'search','url'=>array('admin')),
 );
 ?>

@@ -1,15 +1,25 @@
+
+
 <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'categorias-form',
 	'enableAjaxValidation'=>true,
 )); ?>
 
-<p class="help-block">Campos con <span class="required">*</span> son requeridos.</p>
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldGroup($model,'nombre_categoria',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
-<div class="form-actions">
+<div class="well form" style="background-color: rgb(170,205,222);">
+<div class="row">
+		<p class="help-block">Campos con <span class="required">*</span> son requeridos.</p>
+	</div>
+	<div class="row">
+		<div class="form-group col-md-4">
+		<?php echo $form->textFieldGroup($model,'nombre_categoria',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+		</div>
+	</div>
+	<div class="row">
+	<div class="form-actions">
 	<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'context'=>'primary',
@@ -17,5 +27,12 @@
 			'icon'=>$model->isNewRecord ? 'plus-sign' : 'refresh',
 		)); ?>
 </div>
+	</div>
+</div>
 
-<?php $this->endWidget(); ?>
+	<?php $this->endWidget(); ?>	
+
+
+
+
+

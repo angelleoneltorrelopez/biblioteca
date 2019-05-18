@@ -31,7 +31,9 @@ class Tags extends CActiveRecord
 		return array(
 			array('nombre_tags, id_categoria', 'required'),
 			array('id_categoria', 'numerical', 'integerOnly'=>true),
-			array('nombre_tags', 'length', 'max'=>255),
+			array('nombre_tags', 'unique'),
+			array('nombre_tags', 'length', 'min'=>3,'max'=>255),
+			array('nombre_tags', 'match', 'pattern'=>'/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras."),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_tags, nombre_tags, id_categoria', 'safe', 'on'=>'search'),

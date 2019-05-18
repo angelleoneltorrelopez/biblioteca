@@ -29,7 +29,9 @@ class Pais extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre_pais', 'required'),
-			array('nombre_pais', 'length', 'max'=>255),
+			array('nombre_pais', 'unique'),
+			array('nombre_pais', 'length', 'min'=>3,'max'=>255),
+			array('nombre_pais', 'match', 'pattern'=>'/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras."),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_pais, nombre_pais', 'safe', 'on'=>'search'),
@@ -55,7 +57,7 @@ class Pais extends CActiveRecord
 	{
 		return array(
 			'id_pais' => 'Id',
-			'nombre_pais' => 'Pais',
+			'nombre_pais' => 'País',
 		);
 	}
 

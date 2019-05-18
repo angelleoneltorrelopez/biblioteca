@@ -8,8 +8,11 @@ $this->breadcrumbs=array(
 );
 ?>
 
+
 <h2>Error <?php echo $code; ?></h2>
 
-<div class="error">
-<?php echo CHtml::encode($message); ?>
+<div style="padding-bottom:200px;" class="error">
+<?php echo TbHtml::blockAlert(TbHtml::ALERT_COLOR_INFO, CHtml::encode($message)); ?>
+<?php// echo CHtml::encode($message); ?>
+
 </div>

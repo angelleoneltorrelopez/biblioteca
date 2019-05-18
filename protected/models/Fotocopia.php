@@ -35,6 +35,8 @@ class Fotocopia extends CActiveRecord
 			array('id_visitante, id_libro, cantidad', 'required'),
 			array('id_visitante, id_libro, cantidad', 'numerical', 'integerOnly'=>true),
 			array('fecha', 'safe'),
+			array('cantidad','compare','compareValue'=>0,'operator'=>'>'),  //Esto compara que la que el cantidad no sea negativo
+
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_fotocopia, id_visitante, id_libro, cantidad, fecha', 'safe', 'on'=>'search'),

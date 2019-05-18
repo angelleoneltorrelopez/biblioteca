@@ -28,16 +28,8 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
-'users'=>array('@'),
-),
-array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','admin'),
-'users'=>array('@'),
-),
-array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('update','delete'),
-'users'=>array('admin'),
+'actions'=>array('view','create','admin','update','delete','devo','generarpdf'),
+'roles'=>array('admin','main-admin'),
 ),
 array('deny',  // deny all users
 'users'=>array('*'),
@@ -62,15 +54,26 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
+
 $model=new Prestamos;
-
+//$libros=new Libros;
+//$libros=Libros::model()->findByPk($model->$codigo_libro);
 // Uncomment the following line if AJAX validation is needed
-$this->performAjaxValidation($model);
+$this->performAjaxValidation($model);//,$model_libros);
 
-if(isset($_POST['Prestamos']))
+if(isset($_POST['Prestamos'])) //,$_POST['Libros']))
 {
+
 $model->attributes=$_POST['Prestamos'];
+//$model_libros->attributes=$_POST['Libros'];
 if($model->save())
+try{
+$command = Yii::app()->db->createCommand();
+  $command->update('libros', array(
+    'estado'=>'1',
+), 'id_libro=:id', array(':id'=>$model->codigo_libro));
+}
+ catch(Exception $e) {}
 $this->redirect(array('view','id'=>$model->id_prestamo));
 }
 
@@ -79,6 +82,33 @@ $this->render('create',array(
 ));
 }
 
+
+
+public function actionDevo($id)
+{
+$model=$this->loadModel($id);
+
+// Uncomment the following line if AJAX validation is needed
+$this->performAjaxValidation($model);
+
+if(isset($_POST['Prestamos']))
+{
+$model->attributes=$_POST['Prestamos'];
+if($model->save())
+try{
+$command = Yii::app()->db->createCommand();
+  $command->update('libros', array(
+    'estado'=>'0',
+), 'id_libro=:id', array(':id'=>$model->codigo_libro));
+}
+ catch(Exception $e) {}
+$this->redirect(array('view','id'=>$model->id_prestamo));
+}
+
+$this->render('devo',array(
+'model'=>$model,
+));
+}
 /**
 * Updates a particular model.
 * If update is successful, the browser will be redirected to the 'view' page.

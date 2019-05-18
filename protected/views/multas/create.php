@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Multas'=>array('index'),
+	'Multas'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Multas','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Multas','icon'=>'search','url'=>array('admin')),
 );
 ?>

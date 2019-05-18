@@ -12,6 +12,7 @@
  */
 class Usuarios extends CActiveRecord
 {
+	public $repetir_password;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -28,12 +29,17 @@ class Usuarios extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password', 'required'),
-			array('username, password, role', 'length', 'max'=>45),
+			array('username, password, email', 'required'),
+			array('username', 'match', 'pattern' => '/^[a-z0-9áéíóúñ\_]+$/i', 'message' => 'Solo se permiten letras, números y guiones bajos'),
+			array('username, password, role', 'length', 'min'=>3, 'max'=>45),
+			array('username, email', 'unique'),
 			array('email', 'length', 'max'=>90),
+			array('email','email'),
+			array('repetir_password', 'compare', 'compareAttribute' => 'password', 'message' => 'Contraseñas deben de coincidr'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, username, password, email, role', 'safe', 'on'=>'search'),
+			
 		);
 	}
 
@@ -59,6 +65,7 @@ class Usuarios extends CActiveRecord
 			'password' => 'Password',
 			'email' => 'Email',
 			'role' => 'Rol',
+			'repetir_password' => 'Repetir Password',
 		);
 	}
 
@@ -97,15 +104,18 @@ class Usuarios extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Usuarios the static model class
 	 */
+	
+	 
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+	
 	public function validatePassword($pass_usuario)
 	{
 	return $this->hashPassword($pass_usuario)===$this->password;
 	}
-
+ 
 	public function hashPassword($pass_usuario)
 	{
 	return sha1($pass_usuario);

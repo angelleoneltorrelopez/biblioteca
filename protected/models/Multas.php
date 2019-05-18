@@ -30,13 +30,18 @@ class Multas extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_visitante, monto', 'required'),
-			array('id_visitante', 'numerical', 'integerOnly'=>true),
+			array('id_visitante, monto', 'required'),// datos requeridos
+			array('id_visitante', 'numerical', 'integerOnly'=>true),// campos que son numeros enteros
 			array('monto', 'numerical'),
 			array('descripcion', 'length', 'max'=>255),
+			array('descripcion',  'match', 'pattern'=>'/^[-0-9a-zA-Z.\sñNáéíóúÁÉÍÓÚ]+$/'),//campos solo alfanumerico y solo
+			//guiones y muntos
+			array('monto','compare','compareValue'=>0,'operator'=>'>'),  //Esto compara que el monto no sea negativo
+
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_multas, id_visitante, monto, descripcion', 'safe', 'on'=>'search'),
+			//campos que se pueden van a guardar y buscar
 		);
 	}
 
@@ -89,6 +94,10 @@ class Multas extends CActiveRecord
 		$criteria->compare('idVisitante.nombre',$this->id_visitante,true);
 		$criteria->compare('monto',$this->monto);
 		$criteria->compare('descripcion',$this->descripcion,true);
+
+		$session=new CHttpSession;
+		$session->open();
+		$session['Multas_record']=$criteria;
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

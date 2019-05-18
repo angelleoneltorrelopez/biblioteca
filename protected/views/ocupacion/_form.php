@@ -1,5 +1,6 @@
 <?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'ocupacion-form',
+	'htmlOptions' => array('class' => 'well', 'style'=>'background-color: rgb(170, 205, 222);'),
 	'enableAjaxValidation'=>true,
 )); ?>
 

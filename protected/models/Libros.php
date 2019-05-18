@@ -41,11 +41,18 @@ class Libros extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_libro, nombre_libro, autor, categoria', 'required'),
-			array('id_libro, categoria, pais_autor, numero_paginas, estado', 'numerical', 'integerOnly'=>true),
-			array('nombre_libro', 'length', 'max'=>255),
-			array('editorial, autor', 'length', 'max'=>45),
+			array('nombre_libro, autor, categoria', 'required'),
+			array('categoria, pais_autor, numero_paginas, estado', 'numerical', 'integerOnly'=>true),
+			array('nombre_libro', 'length', 'min'=>3,'max'=>255),
+			array('editorial, autor', 'length','min'=>3, 'max'=>45),
 			array('año_edicion, imagen, descripcion', 'safe'),
+			array('nombre_libro, editorial', 'match', 'pattern'=>'/^[0-9a-zA-Z\s,.áéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras y números."),
+			array('autor', 'match', 'pattern'=>'/^[a-zA-Z\s,áéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras."),
+			array('año_edicion','compare','compareValue'=>date('Y'),'operator'=>'<='),
+
+
+			array('imagen', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'insert,update'),
+			array('imagen', 'length', 'max'=>255, 'on'=>'insert,update'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_libro, nombre_libro, editorial, autor, categoria, pais_autor, numero_paginas, año_edicion, imagen, descripcion, estado', 'safe', 'on'=>'search'),

@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Bitacora'=>array('index'),
+	'Bitacora'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Bitacora','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Bitacora','icon'=>'search','url'=>array('admin')),
 );
 ?>

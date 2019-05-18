@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Libros'=>array('index'),
+	'Libros'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Libros','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Libros','icon'=>'search','url'=>array('admin')),
 );
 ?>

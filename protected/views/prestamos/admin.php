@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Prestamos'=>array('index'),
+	'Prestamos',
 	'Buscar',
 );
 
 $this->menu=array(
-array('label'=>'Listar Prestamos','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Crear Prestamos', 'icon'=>'plus-sign', 'url'=>array('create')),
 );
 
@@ -24,20 +23,10 @@ return false;
 ?>
 
 <h1>Busqueda Prestamos</h1>
-
+<?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/pdf.png",'PDF',array("title"=>"Exportar a PDF")),array("generarpdf"));?>
 <p>
-	Opcionalmente puede ingresar un operador de comparación (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	o <b>=</b>) al comienzo de cada uno de sus valores de búsqueda para especificar cómo se debe hacer la comparación.
+	Exportar a PDF.
 </p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-	<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'prestamos-grid',
 'dataProvider'=>$model->search(),
@@ -55,9 +44,32 @@ return false;
 		'fecha_salida',
 		'fecha_maxima',
 		'fecha_devolucion',
-		'estado',
+		array(
+			'name' => 'estado',
+			'filter' => array('0'=>'Disponible','1'=>'No Disponible'),
+			'value'=> function($model){
+					if ($model->estado == 0) {	$result = "Disponible";	}
+					if ($model->estado == 1) {	$result = "No Disponible";	}
+											return $result;
+
+							}
+				),
 array(
 'class'=>'booster.widgets.TbButtonColumn',
+),
+array(
+	'class'=>'booster.widgets.TbButtonColumn',
+	// Template to set order of buttons
+	'template' => '{signed}',
+	'buttons' => array(
+		'signed' => array(
+
+			'label' => 'Devolucion',     // text label of the button
+			'url'=>'Yii::app()->createUrl("/prestamos/devo", array("id"=>$data["id_prestamo"]))',
+			'options' => array('class'=>'btn btn-danger btn-sm'), // HTML options for the button tag
+		),
+
+	),
 ),
 ),
 )); ?>

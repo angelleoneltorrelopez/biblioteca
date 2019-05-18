@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'visitantes':
  * @property integer $id_visitante
+  * @property string $identificador
  * @property string $nombre
  * @property string $apellidos
  * @property string $direccion
@@ -38,14 +39,18 @@ class Visitantes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_visitante, nombre, apellidos, direccion, telefono', 'required'),
+			array('identificador, nombre, apellidos, direccion, telefono', 'required'),
 			array('id_visitante, telefono, ocupacion', 'numerical', 'integerOnly'=>true),
-			array('nombre, apellidos', 'length', 'max'=>255),
-			array('direccion, institucion', 'length', 'max'=>45),
+			array('nombre, apellidos, identificador', 'length', 'max'=>255),
+			array('identificador', 'match', 'pattern'=>'/^[0-9a-zA-Z\s-_]+$/','message'=>"Solo letras números y guiones."),
+			array('nombre, apellidos, institucion', 'match', 'pattern'=>'/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras."),
+			array('direccion',  'match', 'pattern'=>'/^[0-9a-zA-Z\s-.,áéíóúÁÉÍÓÚñÑ]+$/'),
+			array('fecha_nacimiento','compare','compareValue'=>date('Y-m-d'),'operator'=>'<'),
 			array('fecha_nacimiento', 'safe'),
+			array('identificador', 'unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_visitante, nombre, apellidos, direccion, telefono, fecha_nacimiento, ocupacion, institucion', 'safe', 'on'=>'search'),
+			array('id_visitante, identificador, nombre, apellidos, direccion, telefono, fecha_nacimiento, ocupacion, institucion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +77,7 @@ class Visitantes extends CActiveRecord
 	{
 		return array(
 			'id_visitante' => 'Id',
+			'identificador' => 'Credencial',
 			'nombre' => 'Nombres',
 			'apellidos' => 'Apellidos',
 			'direccion' => 'Direccion',
@@ -102,7 +108,8 @@ class Visitantes extends CActiveRecord
 
 		$criteria->together = true;
 		$criteria->with = array('ocupacion0');
-		$criteria->compare('id_visitante',$this->id_visitante);
+		$criteria->compare('id_visitante',$this->id_visitante,true);
+		$criteria->compare('identificador',$this->identificador,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('apellidos',$this->apellidos,true);
 		$criteria->compare('direccion',$this->direccion,true);
@@ -110,6 +117,11 @@ class Visitantes extends CActiveRecord
 		$criteria->compare('fecha_nacimiento',$this->fecha_nacimiento,true);
 		$criteria->compare('ocupacion0.ocupacion',$this->ocupacion,true);
 		$criteria->compare('institucion',$this->institucion,true);
+
+		$session=new CHttpSession;
+		$session->open();
+		$session['Visitantes_record']=$criteria;
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

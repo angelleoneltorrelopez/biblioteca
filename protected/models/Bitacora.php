@@ -9,7 +9,7 @@
  * @property integer $id_libro
  * @property string $hora_ingreso
  * @property string $hora_salida
- *
+ * @property string $fecha
  * The followings are the available model relations:
  * @property Libros $idLibro
  * @property Visitantes $idVisitante
@@ -24,6 +24,12 @@ class Bitacora extends CActiveRecord
 		return 'bitacora';
 	}
 
+	public function verificar($attribute){
+		if($this->hora_salida<$this->hora_ingreso){
+			$this->addError($attribute,'Hora Salida debe ser mayor que Hora Ingreso');
+		}
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -32,12 +38,17 @@ class Bitacora extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_visitante, id_libro', 'required'),
+			array('id_visitante, id_libro, fecha', 'required',),
 			array('id_visitante, id_libro', 'numerical', 'integerOnly'=>true),
-			array('hora_ingreso, hora_salida', 'safe'),
+			array('hora_ingreso, hora_salida', 'required'),
+			array('hora_salida','compare','compareAttribute'=>'hora_ingreso', 'operator'=>'>='),
+
+			//array('hora_ingreso','compare','compareValue'=>date('Y-m-d'),'operator'=>'>='),  //Esto compara que la fecha de finalización de licitación sea mayor a la fecha actual
+
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_bitacora, id_visitante, id_libro, hora_ingreso, hora_salida', 'safe', 'on'=>'search'),
+			array('id_bitacora, id_visitante, id_libro, hora_ingreso, hora_salida, fecha', 'safe', 'on'=>'search'),
+			array('hora_salida','verificar'),
 		);
 	}
 
@@ -65,6 +76,7 @@ class Bitacora extends CActiveRecord
 			'id_libro' => 'Libro',
 			'hora_ingreso' => 'Hora Ingreso',
 			'hora_salida' => 'Hora Salida',
+			'fecha'=>'Fecha',
 		);
 	}
 
@@ -93,6 +105,11 @@ class Bitacora extends CActiveRecord
 		$criteria->compare('idLibro.nombre_libro',$this->id_libro,true);
 		$criteria->compare('hora_ingreso',$this->hora_ingreso,true);
 		$criteria->compare('hora_salida',$this->hora_salida,true);
+		$criteria->compare('fecha',$this->fecha,true);
+
+		$session=new CHttpSession;
+		$session->open();
+		$session['Bitacora_record']=$criteria;
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

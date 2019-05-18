@@ -30,7 +30,9 @@ class Categorias extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre_categoria', 'required'),
-			array('nombre_categoria', 'length', 'max'=>255),
+			array('nombre_categoria', 'length','min'=>3, 'max'=>255),
+			array('nombre_categoria', 'match', 'pattern'=>'/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras."),
+			array('nombre_categoria', 'unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_categorias, nombre_categoria', 'safe', 'on'=>'search'),

@@ -29,7 +29,9 @@ class Ocupacion extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('ocupacion', 'required'),
-			array('ocupacion', 'length', 'max'=>255),
+			array('ocupacion', 'length', 'min'=>'3','max'=>255),
+			array('ocupacion', 'unique'),
+			array('ocupacion', 'match','pattern'=>'/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/','message'=>"Solo letras."),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_ocupacion, ocupacion', 'safe', 'on'=>'search'),
@@ -55,7 +57,7 @@ class Ocupacion extends CActiveRecord
 	{
 		return array(
 			'id_ocupacion' => 'Id',
-			'ocupacion' => 'Ocupacion',
+			'ocupacion' => 'Ocupación',
 		);
 	}
 

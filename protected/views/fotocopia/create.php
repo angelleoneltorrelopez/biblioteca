@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Fotocopias'=>array('index'),
+	'Fotocopias'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Fotocopia','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Fotocopia','icon'=>'search','url'=>array('admin')),
 );
 ?>

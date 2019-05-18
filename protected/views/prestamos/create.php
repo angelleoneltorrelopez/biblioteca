@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Prestamos'=>array('index'),
+	'Prestamos'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Prestamos','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Prestamos','icon'=>'search','url'=>array('admin')),
 );
 ?>

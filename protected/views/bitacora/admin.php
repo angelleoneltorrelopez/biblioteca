@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Bitacora'=>array('index'),
+	'Bitacora',
 	'Buscar',
 );
 
 $this->menu=array(
-array('label'=>'Listar Bitacora','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Crear Bitacora', 'icon'=>'plus-sign', 'url'=>array('create')),
 );
 
@@ -24,20 +23,10 @@ return false;
 ?>
 
 <h1>Busqueda Bitacora</h1>
-
+<?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/pdf.png",'PDF',array("title"=>"Exportar a PDF")),array("generarpdf"));?>
 <p>
-	Opcionalmente puede ingresar un operador de comparación (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	o <b>=</b>) al comienzo de cada uno de sus valores de búsqueda para especificar cómo se debe hacer la comparación.
+	Exportar a PDF.
 </p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-	<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'bitacora-grid',
 'dataProvider'=>$model->search(),
@@ -54,6 +43,7 @@ return false;
 		),
 		'hora_ingreso',
 		'hora_salida',
+		'fecha',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

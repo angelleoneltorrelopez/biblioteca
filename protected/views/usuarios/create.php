@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Usuarios'=>array('index'),
+	'Usuarios'=>array('admin'),
 	'Crear',
 );
 ?>
@@ -9,7 +9,6 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 $htmloptions=array('class'=>'row','width'=>'100%;'),
-array('label'=>'Listar Usuarios','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Usuarios','icon'=>'search','url'=>array('admin')),
 );
 ?>

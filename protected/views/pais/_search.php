@@ -3,8 +3,6 @@
 	'method'=>'get',
 )); ?>
 
-		<?php echo $form->textFieldGroup($model,'id_pais',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-
 		<?php echo $form->textFieldGroup($model,'nombre_pais',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
 	<div class="form-actions">

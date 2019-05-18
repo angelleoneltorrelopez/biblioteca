@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Categorias'=>array('index'),
+	'Categorias'=>array('admin'),
 	'Create',
 );
 
 $this->menu=array(
-array('label'=>'Listar Categorias','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Categorias','icon'=>'search','url'=>array('admin')),
 );
 ?>

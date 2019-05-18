@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Ocupacion'=>array('index'),
+	'Ocupacion'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Ocupacion','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Ocupacion','icon'=>'search','url'=>array('admin')),
 );
 ?>

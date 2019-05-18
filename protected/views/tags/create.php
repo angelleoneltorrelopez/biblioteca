@@ -1,11 +1,10 @@
 <?php
 $this->breadcrumbs=array(
-	'Tags'=>array('index'),
+	'Tags'=>array('admin'),
 	'Crear',
 );
 
 $this->menu=array(
-array('label'=>'Listar Tags','icon'=>'list-alt','url'=>array('index')),
 array('label'=>'Busqueda Tags','icon'=>'search','url'=>array('admin')),
 );
 ?>

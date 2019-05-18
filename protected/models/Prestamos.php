@@ -26,6 +26,21 @@ class Prestamos extends CActiveRecord
 		return 'prestamos';
 	}
 
+
+	public function ver($attribute){
+		if($this->fecha_devolucion>$this->fecha_maxima){
+			$this->addError($attribute,'Fecha maxima excedida');
+		}
+	}
+
+	public function verificar($attribute){
+		if($this->fecha_maxima<$this->fecha_salida){
+			$this->addError($attribute,'Fecha Fin debe ser igual o mayor que Fecha Salida');
+		}
+	}
+
+
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -34,11 +49,17 @@ class Prestamos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('codigo_libro, id_visitante, fecha_salida, fecha_maxima, fecha_devolucion', 'required'),
+			array('codigo_libro, id_visitante, fecha_salida, fecha_maxima', 'required'),
 			array('codigo_libro, id_visitante, estado', 'numerical', 'integerOnly'=>true),
+			array('fecha_salida','compare','compareValue'=>date('Y-m-d'),'operator'=>'>='),  //Esto compara que la fecha de finalización de licitación sea mayor a la fecha actual
+			//array('estado','compare','compareValue'=>'0','operator'=>'>'),  //Esto compara que la fecha de finalización de licitación sea mayor a la fecha actual
+			array('fecha_maxima','verificar'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id_prestamo, codigo_libro, id_visitante, fecha_salida, fecha_maxima, fecha_devolucion, estado', 'safe', 'on'=>'search'),
+
+		//	array('fecha_devolucion','compare','compareAttribute'=>'fecha_salida','operator'=>'>=','on'=>'devo'),
+			//array('fecha_devolucion','ver','on'=>'devo'),
 		);
 	}
 
@@ -97,12 +118,18 @@ class Prestamos extends CActiveRecord
 		$criteria->compare('fecha_salida',$this->fecha_salida,true);
 		$criteria->compare('fecha_maxima',$this->fecha_maxima,true);
 		$criteria->compare('fecha_devolucion',$this->fecha_devolucion,true);
-		$criteria->compare('estado',$this->estado);
+		$criteria->compare('t.estado',$this->estado,true);
+
+		$session=new CHttpSession;
+		$session->open();
+		$session['Prestamos_record']=$criteria;
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+
 
 	/**
 	 * Returns the static model of the specified AR class.

@@ -1,12 +1,13 @@
-<div class="view">
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
+	'id'=>'ocupacion-form',
+	'htmlOptions' => array('class' => 'well', 'style'=>'background-color: rgb(174, 222, 170);'),
+	'enableAjaxValidation'=>true,
+)); ?>
 
-		<b><?php echo CHtml::encode($data->getAttributeLabel('id_ocupacion')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id_ocupacion),array('view','id'=>$data->id_ocupacion)); ?>
-	<br />
+<p class="help-block">Campos con <span class="required">*</span> son requeridos.</p>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('ocupacion')); ?>:</b>
-	<?php echo CHtml::encode($data->ocupacion); ?>
-	<br />
+<?php echo $form->errorSummary($model); ?>
 
+	<?php echo $form->textFieldGroup($model,'ocupacion',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255, 'readonly'=>'readonly')))); ?>
 
-</div>
+<?php $this->endWidget(); ?>
